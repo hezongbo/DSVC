@@ -1,0 +1,881 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{logistic\_regression}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Logistic Regression
+exercise}\label{logistic-regression-exercise}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{15.}\PY{p}{,} \PY{l+m+mf}{12.}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{} Some more magic so that the notebook will reload external python modules;}
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Read the data for you}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./DSVC/datasets/MNIST.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{values} \PY{c+c1}{\PYZsh{} change the path by yourself}
+        \PY{n}{imgs} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}\PY{c+c1}{\PYZsh{}此代码的意思是取到data数据的所有行和从第二列的所有列}
+        \PY{n}{labels} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{c+c1}{\PYZsh{}此代码的意思是取到data数据的第一列}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Visualize some examples from the dataset.}
+        \PY{c+c1}{\PYZsh{} We show a few examples of training images from each class.}
+        \PY{c+c1}{\PYZsh{}下面是没见过的函数的介绍帮助理解}
+        \PY{c+c1}{\PYZsh{}numpy.random.choice(a, size=None, replace=True, p=None)}
+        \PY{c+c1}{\PYZsh{}a : 如果是一维数组，就表示从这个一维数组中随机采样；如果是int型，就表示从0到a\PYZhy{}1这个序列中随机采样。 }
+        \PY{c+c1}{\PYZsh{}size : 采样结果的数量，默认为1.可以是整数，表示要采样的数量；也可以为tuple，如(m, n, k)，则要采样的数量为m * n * k，size为(m, n, k)。 }
+        \PY{c+c1}{\PYZsh{}replace : boolean型，采样的样本是否要更换？这个地方我不太理解，测了一下发现replace指定为True时，采样的元素会有重复；当replace指定为False时，采样不会重复。 }
+        \PY{c+c1}{\PYZsh{}p : 一个一维数组，制定了a中每个元素采样的概率，若为默认的None，则a中每个元素被采样的概率相同。}
+        \PY{n}{classes} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}
+        \PY{n}{samples\PYZus{}per\PYZus{}class} \PY{o}{=} \PY{l+m+mi}{7}
+        \PY{k}{for} \PY{n}{y}\PY{p}{,} \PY{n+nb+bp}{cls} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{idxs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flatnonzero}\PY{p}{(}\PY{n}{labels} \PY{o}{==} \PY{n}{y}\PY{p}{)}\PY{c+c1}{\PYZsh{}这是输出所有y==labels中的数据的索引（位置）}
+            \PY{n}{idxs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{idxs}\PY{p}{,} \PY{n}{samples\PYZus{}per\PYZus{}class}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{idxs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plt\PYZus{}idx} \PY{o}{=} \PY{n}{i} \PY{o}{*} \PY{n}{num\PYZus{}classes} \PY{o}{+} \PY{n}{y} \PY{o}{+} \PY{l+m+mi}{1}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{samples\PYZus{}per\PYZus{}class}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{n}{plt\PYZus{}idx}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{imgs}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}绘制二维图，记住只能是28,28因为这是数据集的设置问题，其实imgs对应的每一行都是一个数字}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Binary classification}\label{binary-classification}
+
+We use the Logistic Regression to classification handwritten digits
+wheather it's zero or not. If the handwritten digits is '0' , then the
+label is 0, otherwise, the label is 1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} transform the labels to binary}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{labels}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                
+        \PY{c+c1}{\PYZsh{} 2/3 training set}
+        \PY{c+c1}{\PYZsh{} 1/3 test set}
+        \PY{n}{split\PYZus{}index} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{imgs}\PY{p}{[}\PY{p}{:}\PY{n}{split\PYZus{}index}\PY{p}{]}
+        \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{p}{:}\PY{n}{split\PYZus{}index}\PY{p}{]}
+        \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{imgs}\PY{p}{[}\PY{n}{split\PYZus{}index}\PY{p}{:}\PY{p}{]}
+        \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{split\PYZus{}index}\PY{p}{:}\PY{p}{]}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(28000, 785)
+(14000, 785)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{X\PYZus{}train\PYZus{}feats} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)} \PY{c+c1}{\PYZsh{} choose and extract features}
+        \PY{n}{X\PYZus{}test\PYZus{}feats} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} \PY{c+c1}{\PYZsh{} choose and extract features}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Visualize some examples from the dataset.}
+        \PY{c+c1}{\PYZsh{} We show a few examples of training images from each class.}
+        \PY{n}{classes} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}
+        \PY{n}{samples\PYZus{}per\PYZus{}class} \PY{o}{=} \PY{l+m+mi}{7}
+        \PY{k}{for} \PY{n}{y}\PY{p}{,} \PY{n+nb+bp}{cls} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{idxs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flatnonzero}\PY{p}{(}\PY{n}{labels} \PY{o}{==} \PY{n}{y}\PY{p}{)}
+            \PY{n}{idxs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{idxs}\PY{p}{,} \PY{n}{samples\PYZus{}per\PYZus{}class}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{idxs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plt\PYZus{}idx} \PY{o}{=} \PY{n}{i} \PY{o}{*} \PY{n}{num\PYZus{}classes} \PY{o}{+} \PY{n}{y} \PY{o}{+} \PY{l+m+mi}{1}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{n}{samples\PYZus{}per\PYZus{}class}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{n}{plt\PYZus{}idx}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{imgs}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{DSVC}\PY{n+nn}{.}\PY{n+nn}{classifiers} \PY{k}{import} \PY{n}{LogisticRegression}
+        
+        \PY{c+c1}{\PYZsh{} Start training. }
+        \PY{c+c1}{\PYZsh{} You should open DSVC/classifiers/logistic\PYZus{}regression.py and implement the function.}
+        \PY{c+c1}{\PYZsh{} Then run this cell.}
+        
+        \PY{n}{classifier} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss\PYZus{}history} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{train}\PY{p}{(}
+            \PY{n}{X\PYZus{}train\PYZus{}feats}\PY{p}{,} 
+            \PY{n}{y\PYZus{}train}\PY{p}{,}
+            \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+            \PY{n}{num\PYZus{}iters} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,}
+            \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{,}
+        \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 500: loss 0.690004
+iteration 20 / 500: loss 0.381840
+iteration 40 / 500: loss 0.347297
+iteration 60 / 500: loss 0.245958
+iteration 80 / 500: loss 0.270786
+iteration 100 / 500: loss 0.198488
+iteration 120 / 500: loss 0.116262
+iteration 140 / 500: loss 0.185801
+iteration 160 / 500: loss 0.215011
+iteration 180 / 500: loss 0.209554
+iteration 200 / 500: loss 0.139149
+iteration 220 / 500: loss 0.168083
+iteration 240 / 500: loss 0.220496
+iteration 260 / 500: loss 0.126041
+iteration 280 / 500: loss 0.119205
+iteration 300 / 500: loss 0.096545
+iteration 320 / 500: loss 0.098876
+iteration 340 / 500: loss 0.125214
+iteration 360 / 500: loss 0.113742
+iteration 380 / 500: loss 0.064422
+iteration 400 / 500: loss 0.057985
+iteration 420 / 500: loss 0.101358
+iteration 440 / 500: loss 0.117230
+iteration 460 / 500: loss 0.064175
+iteration 480 / 500: loss 0.075732
+500
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{loss\PYZus{}history}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [<matplotlib.lines.Line2D at 0x93500f668>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}feats}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accuracy socre is }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy socre is  0.9758571428571429
+
+    \end{Verbatim}
+
+    you should get the accuracy higher than 96\%.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{F1-Measure}\label{f1-measure}
+
+Notice that, if our model always output '1', totally ignoring the input
+X, we can get a accuracy 90\%.So, in this assignment, accuracy is not
+efficient enough.
+
+We will use F1-Measure to evaluate our model.
+
+You may need this:
+\href{https://baike.baidu.com/item/f-measure/913107?fr=aladdin}{F1-Measure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Calculate the precision(准确率), recall(召回率) and F1}
+         \PY{c+c1}{\PYZsh{} important： We should consider label \PYZsq{}0\PYZsq{} as \PYZsq{}positive\PYZsq{} here. }
+         \PY{c+c1}{\PYZsh{} That means \PYZsq{}True positive\PYZsq{} ==\PYZgt{} \PYZsq{}(y\PYZus{}test == 0) and (y\PYZus{}test\PYZus{}pred == 0)\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}Your code here\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{n}{TP}\PY{p}{,}\PY{n}{FP}\PY{p}{,}\PY{n}{FN}\PY{p}{,}\PY{n}{TN}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{TP}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{TN}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{FN}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{FP}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{precision} \PY{o}{=} \PY{n}{TP}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+         \PY{n}{recall} \PY{o}{=} \PY{n}{TP}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{precision}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{recall}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F1:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{precision}\PY{o}{*}\PY{n}{recall}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{n}{precision}\PY{o}{+}\PY{n}{recall}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9628990509059534
+0.7909284195605953
+F1: 0.8684824902723736
+
+    \end{Verbatim}
+
+    you should get the F1 higher than 85\%.
+
+    \section{Multiclass classification}\label{multiclass-classification}
+
+Now, we use the Logistic Regression to classification handwritten
+digits. There are 10 class, from '0' to '9'.
+
+Hint: The method "one vs all" may helpful.
+\href{https://msdn.microsoft.com/library/en-us/Dn905887.aspx}{Here is
+the introduction to "one vs all"}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Read the data for you}
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./DSVC/datasets/MNIST.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{values} \PY{c+c1}{\PYZsh{} change the path by yourself}
+         \PY{n}{imgs} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                 
+         \PY{c+c1}{\PYZsh{} 2/3 training set}
+         \PY{c+c1}{\PYZsh{} 1/3 test set}
+         \PY{n}{split\PYZus{}index} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{imgs}\PY{p}{[}\PY{p}{:}\PY{n}{split\PYZus{}index}\PY{p}{]}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{p}{:}\PY{n}{split\PYZus{}index}\PY{p}{]}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{imgs}\PY{p}{[}\PY{n}{split\PYZus{}index}\PY{p}{:}\PY{p}{]}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{split\PYZus{}index}\PY{p}{:}\PY{p}{]}
+         
+         \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(28000, 785)
+(14000, 785)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{X\PYZus{}train\PYZus{}feats} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}test\PYZus{}feats} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Start training. }
+         \PY{c+c1}{\PYZsh{} You should update your code in DSVC/classifiers/logistic\PYZus{}regression.py .}
+         \PY{c+c1}{\PYZsh{} Then run this cell.}
+         
+         \PY{n}{classifier} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{one\PYZus{}vs\PYZus{}all}\PY{p}{(}
+             \PY{n}{X\PYZus{}train\PYZus{}feats}\PY{p}{,} 
+             \PY{n}{y\PYZus{}train}\PY{p}{,}
+             \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+             \PY{n}{num\PYZus{}iters} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,}
+             \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{,}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+当前预测是数字是: 0
+iteration 0 / 500: loss 0.698566
+iteration 20 / 500: loss 0.402859
+iteration 40 / 500: loss 0.296793
+iteration 60 / 500: loss 0.303695
+iteration 80 / 500: loss 0.181000
+iteration 100 / 500: loss 0.219426
+iteration 120 / 500: loss 0.218875
+iteration 140 / 500: loss 0.166887
+iteration 160 / 500: loss 0.144130
+iteration 180 / 500: loss 0.222776
+iteration 200 / 500: loss 0.139632
+iteration 220 / 500: loss 0.131754
+iteration 240 / 500: loss 0.144949
+iteration 260 / 500: loss 0.167198
+iteration 280 / 500: loss 0.118202
+iteration 300 / 500: loss 0.170958
+iteration 320 / 500: loss 0.076713
+iteration 340 / 500: loss 0.132861
+iteration 360 / 500: loss 0.095730
+iteration 380 / 500: loss 0.090311
+iteration 400 / 500: loss 0.101154
+iteration 420 / 500: loss 0.111109
+iteration 440 / 500: loss 0.068254
+iteration 460 / 500: loss 0.087344
+iteration 480 / 500: loss 0.094722
+500
+当前预测是数字是: 1
+iteration 0 / 500: loss 0.694426
+iteration 20 / 500: loss 0.417741
+iteration 40 / 500: loss 0.346597
+iteration 60 / 500: loss 0.232302
+iteration 80 / 500: loss 0.228416
+iteration 100 / 500: loss 0.167044
+iteration 120 / 500: loss 0.173623
+iteration 140 / 500: loss 0.199577
+iteration 160 / 500: loss 0.136089
+iteration 180 / 500: loss 0.169763
+iteration 200 / 500: loss 0.145446
+iteration 220 / 500: loss 0.158776
+iteration 240 / 500: loss 0.153875
+iteration 260 / 500: loss 0.124430
+iteration 280 / 500: loss 0.132172
+iteration 300 / 500: loss 0.077621
+iteration 320 / 500: loss 0.106197
+iteration 340 / 500: loss 0.124906
+iteration 360 / 500: loss 0.141227
+iteration 380 / 500: loss 0.088473
+iteration 400 / 500: loss 0.121161
+iteration 420 / 500: loss 0.130355
+iteration 440 / 500: loss 0.099229
+iteration 460 / 500: loss 0.117548
+iteration 480 / 500: loss 0.113208
+500
+当前预测是数字是: 2
+iteration 0 / 500: loss 0.690258
+iteration 20 / 500: loss 0.356135
+iteration 40 / 500: loss 0.288420
+iteration 60 / 500: loss 0.370022
+iteration 80 / 500: loss 0.296150
+iteration 100 / 500: loss 0.274704
+iteration 120 / 500: loss 0.377557
+iteration 140 / 500: loss 0.227806
+iteration 160 / 500: loss 0.329777
+iteration 180 / 500: loss 0.139744
+iteration 200 / 500: loss 0.257442
+iteration 220 / 500: loss 0.137766
+iteration 240 / 500: loss 0.191449
+iteration 260 / 500: loss 0.158070
+iteration 280 / 500: loss 0.118263
+iteration 300 / 500: loss 0.137474
+iteration 320 / 500: loss 0.161694
+iteration 340 / 500: loss 0.130507
+iteration 360 / 500: loss 0.205162
+iteration 380 / 500: loss 0.231252
+iteration 400 / 500: loss 0.143500
+iteration 420 / 500: loss 0.131266
+iteration 440 / 500: loss 0.161872
+iteration 460 / 500: loss 0.132705
+iteration 480 / 500: loss 0.183059
+500
+当前预测是数字是: 3
+iteration 0 / 500: loss 0.684079
+iteration 20 / 500: loss 0.379929
+iteration 40 / 500: loss 0.349785
+iteration 60 / 500: loss 0.342084
+iteration 80 / 500: loss 0.307550
+iteration 100 / 500: loss 0.165151
+iteration 120 / 500: loss 0.238585
+iteration 140 / 500: loss 0.177983
+iteration 160 / 500: loss 0.414456
+iteration 180 / 500: loss 0.246430
+iteration 200 / 500: loss 0.178454
+iteration 220 / 500: loss 0.195372
+iteration 240 / 500: loss 0.185312
+iteration 260 / 500: loss 0.208369
+iteration 280 / 500: loss 0.294936
+iteration 300 / 500: loss 0.236666
+iteration 320 / 500: loss 0.227561
+iteration 340 / 500: loss 0.197221
+iteration 360 / 500: loss 0.183801
+iteration 380 / 500: loss 0.120755
+iteration 400 / 500: loss 0.250160
+iteration 420 / 500: loss 0.117604
+iteration 440 / 500: loss 0.192846
+iteration 460 / 500: loss 0.226464
+iteration 480 / 500: loss 0.192578
+500
+当前预测是数字是: 4
+iteration 0 / 500: loss 0.690759
+iteration 20 / 500: loss 0.370938
+iteration 40 / 500: loss 0.344191
+iteration 60 / 500: loss 0.299238
+iteration 80 / 500: loss 0.251145
+iteration 100 / 500: loss 0.204606
+iteration 120 / 500: loss 0.328250
+iteration 140 / 500: loss 0.234599
+iteration 160 / 500: loss 0.206320
+iteration 180 / 500: loss 0.264468
+iteration 200 / 500: loss 0.161641
+iteration 220 / 500: loss 0.145406
+iteration 240 / 500: loss 0.254192
+iteration 260 / 500: loss 0.143711
+iteration 280 / 500: loss 0.221678
+iteration 300 / 500: loss 0.188857
+iteration 320 / 500: loss 0.154332
+iteration 340 / 500: loss 0.195819
+iteration 360 / 500: loss 0.166418
+iteration 380 / 500: loss 0.192505
+iteration 400 / 500: loss 0.185102
+iteration 420 / 500: loss 0.125597
+iteration 440 / 500: loss 0.182264
+iteration 460 / 500: loss 0.194460
+iteration 480 / 500: loss 0.186403
+500
+当前预测是数字是: 5
+iteration 0 / 500: loss 0.696894
+iteration 20 / 500: loss 0.342846
+iteration 40 / 500: loss 0.359634
+iteration 60 / 500: loss 0.260056
+iteration 80 / 500: loss 0.239364
+iteration 100 / 500: loss 0.309876
+iteration 120 / 500: loss 0.271034
+iteration 140 / 500: loss 0.107849
+iteration 160 / 500: loss 0.296945
+iteration 180 / 500: loss 0.373776
+iteration 200 / 500: loss 0.288365
+iteration 220 / 500: loss 0.223063
+iteration 240 / 500: loss 0.251279
+iteration 260 / 500: loss 0.182033
+iteration 280 / 500: loss 0.352032
+iteration 300 / 500: loss 0.225009
+iteration 320 / 500: loss 0.203832
+iteration 340 / 500: loss 0.141567
+iteration 360 / 500: loss 0.212865
+iteration 380 / 500: loss 0.204029
+iteration 400 / 500: loss 0.257520
+iteration 420 / 500: loss 0.191653
+iteration 440 / 500: loss 0.216320
+iteration 460 / 500: loss 0.250767
+iteration 480 / 500: loss 0.158640
+500
+当前预测是数字是: 6
+iteration 0 / 500: loss 0.683829
+iteration 20 / 500: loss 0.431100
+iteration 40 / 500: loss 0.334405
+iteration 60 / 500: loss 0.181794
+iteration 80 / 500: loss 0.251309
+iteration 100 / 500: loss 0.374645
+iteration 120 / 500: loss 0.205614
+iteration 140 / 500: loss 0.255413
+iteration 160 / 500: loss 0.233100
+iteration 180 / 500: loss 0.208199
+iteration 200 / 500: loss 0.156830
+iteration 220 / 500: loss 0.179654
+iteration 240 / 500: loss 0.159623
+iteration 260 / 500: loss 0.182866
+iteration 280 / 500: loss 0.172714
+iteration 300 / 500: loss 0.128285
+iteration 320 / 500: loss 0.102878
+iteration 340 / 500: loss 0.103179
+iteration 360 / 500: loss 0.083849
+iteration 380 / 500: loss 0.134089
+iteration 400 / 500: loss 0.179032
+iteration 420 / 500: loss 0.102610
+iteration 440 / 500: loss 0.108574
+iteration 460 / 500: loss 0.104812
+iteration 480 / 500: loss 0.079306
+500
+当前预测是数字是: 7
+iteration 0 / 500: loss 0.681695
+iteration 20 / 500: loss 0.369141
+iteration 40 / 500: loss 0.329880
+iteration 60 / 500: loss 0.295922
+iteration 80 / 500: loss 0.288383
+iteration 100 / 500: loss 0.306621
+iteration 120 / 500: loss 0.182899
+iteration 140 / 500: loss 0.206532
+iteration 160 / 500: loss 0.188098
+iteration 180 / 500: loss 0.177997
+iteration 200 / 500: loss 0.226589
+iteration 220 / 500: loss 0.156696
+iteration 240 / 500: loss 0.154596
+iteration 260 / 500: loss 0.141000
+iteration 280 / 500: loss 0.161393
+iteration 300 / 500: loss 0.119083
+iteration 320 / 500: loss 0.120286
+iteration 340 / 500: loss 0.091833
+iteration 360 / 500: loss 0.142468
+iteration 380 / 500: loss 0.213572
+iteration 400 / 500: loss 0.177534
+iteration 420 / 500: loss 0.191476
+iteration 440 / 500: loss 0.215204
+iteration 460 / 500: loss 0.164012
+iteration 480 / 500: loss 0.128349
+500
+当前预测是数字是: 8
+iteration 0 / 500: loss 0.689130
+iteration 20 / 500: loss 0.476230
+iteration 40 / 500: loss 0.349261
+iteration 60 / 500: loss 0.484892
+iteration 80 / 500: loss 0.348020
+iteration 100 / 500: loss 0.281938
+iteration 120 / 500: loss 0.270720
+iteration 140 / 500: loss 0.451255
+iteration 160 / 500: loss 0.319835
+iteration 180 / 500: loss 0.288704
+iteration 200 / 500: loss 0.275744
+iteration 220 / 500: loss 0.258714
+iteration 240 / 500: loss 0.269403
+iteration 260 / 500: loss 0.223877
+iteration 280 / 500: loss 0.258948
+iteration 300 / 500: loss 0.315027
+iteration 320 / 500: loss 0.239371
+iteration 340 / 500: loss 0.197568
+iteration 360 / 500: loss 0.256995
+iteration 380 / 500: loss 0.312082
+iteration 400 / 500: loss 0.327294
+iteration 420 / 500: loss 0.195657
+iteration 440 / 500: loss 0.241033
+iteration 460 / 500: loss 0.235112
+iteration 480 / 500: loss 0.200466
+500
+当前预测是数字是: 9
+iteration 0 / 500: loss 0.701048
+iteration 20 / 500: loss 0.413446
+iteration 40 / 500: loss 0.319911
+iteration 60 / 500: loss 0.256702
+iteration 80 / 500: loss 0.362928
+iteration 100 / 500: loss 0.244010
+iteration 120 / 500: loss 0.313551
+iteration 140 / 500: loss 0.165374
+iteration 160 / 500: loss 0.230738
+iteration 180 / 500: loss 0.207677
+iteration 200 / 500: loss 0.252648
+iteration 220 / 500: loss 0.285775
+iteration 240 / 500: loss 0.316712
+iteration 260 / 500: loss 0.309490
+iteration 280 / 500: loss 0.288168
+iteration 300 / 500: loss 0.285571
+iteration 320 / 500: loss 0.270149
+iteration 340 / 500: loss 0.289119
+iteration 360 / 500: loss 0.292315
+iteration 380 / 500: loss 0.263224
+iteration 400 / 500: loss 0.264783
+iteration 420 / 500: loss 0.294134
+iteration 440 / 500: loss 0.206865
+iteration 460 / 500: loss 0.218821
+iteration 480 / 500: loss 0.316405
+500
+[[0.00662102 0.00497611 0.0082754  {\ldots} 0.00794439 0.0108362  0.0072288 ]
+ [0.00964543 0.00503474 0.00875838 {\ldots} 0.00673373 0.01016298 0.00875433]
+ [0.00763002 0.00626992 0.00654443 {\ldots} 0.00776992 0.0106505  0.00756873]
+ {\ldots}
+ [0.00797279 0.00566741 0.00955964 {\ldots} 0.00623494 0.01147765 0.01004781]
+ [0.00726248 0.00559482 0.0075326  {\ldots} 0.00676668 0.0111395  0.00575999]
+ [0.00901962 0.0049669  0.00756679 {\ldots} 0.00716287 0.00950982 0.00720769]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} you may change your code in function `predict`}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{one\PYZus{}vs\PYZus{}all\PYZus{}predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}feats}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The accruacy socre is }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accruacy socre is  0.8317142857142857
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

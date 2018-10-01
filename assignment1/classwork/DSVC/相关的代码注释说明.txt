@@ -1,0 +1,16 @@
+# Visualize some examples from the dataset.
+# We show a few examples of training images from each class.
+classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'] #类别列表
+num_classes = len(classes) #类别数目
+samples_per_class = 7 # 每个类别采样个数
+for y, cls in enumerate(classes): # 对列表的元素位置和元素进行循环，y表示元素位置（0,num_class），cls元素本身'plane'等
+    idxs = np.flatnonzero(y_train == y) #找出标签中y类的位置
+    idxs = np.random.choice(idxs, samples_per_class, replace=False) #从中选出我们所需的7个样本
+    for i, idx in enumerate(idxs): #对所选的样本的位置和样本所对应的图片在训练集中的位置进行循环
+        plt_idx = i * num_classes + y + 1 # 在子图中所占位置的计算
+        plt.subplot(samples_per_class, num_classes, plt_idx) # 说明要画的子图的编号
+        plt.imshow(X_train[idx].astype('uint8')) # 画图
+        plt.axis('off')
+        if i == 0:
+            plt.title(cls) # 写上标题，也就是类别名
+plt.show() # 显示

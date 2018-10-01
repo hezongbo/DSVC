@@ -1,0 +1,750 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{boston\_housing}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{项目 :
+预测波士顿房价}\label{ux9879ux76ee-ux9884ux6d4bux6ce2ux58ebux987fux623fux4ef7}
+
+欢迎来到 DSVC
+《机器学习》研讨班第二周的项目！在此文件中，有些示例代码已经提供给你，但你还需要实现更多的功能来让项目成功运行。除非有明确要求，你无须修改任何已给出的代码。以\textbf{编程练习}开始的标题表示接下来的内容中有需要你必须实现的功能。每一部分都会有详细的指导，需要实现的部分也会在注释中以\textbf{TODO}标出。请仔细阅读所有的提示！
+
+除了实现代码外，你还\textbf{必须}回答一些与项目和实现有关的问题。每一个需要你回答的问题都会以\textbf{'问题
+X'}为标题。请仔细阅读每个问题，并且在问题后的\textbf{'回答'}文字框中写出完整的答案。你的项目将会根据你对问题的回答和撰写代码所实现的功能来进行评分。
+
+\begin{quote}
+\textbf{提示：}Code 和 Markdown 区域可通过 \textbf{Shift + Enter}
+快捷键运行。此外，Markdown可以通过双击进入编辑模式。
+\end{quote}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{第一步.
+导入数据}\label{ux7b2cux4e00ux6b65.-ux5bfcux5165ux6570ux636e}
+
+在这个项目中，你将利用马萨诸塞州波士顿郊区的房屋信息数据训练和测试一个模型，并对模型的性能和预测能力进行测试。通过该数据训练后的好的模型可以被用来对房屋做特定预测-\/-\/-尤其是对房屋的价值。对于房地产经纪等人的日常工作来说，这样的预测模型被证明非常有价值。
+
+此项目的数据集来自\href{https://archive.ics.uci.edu/ml/datasets.html}{UCI机器学习知识库(数据集已下线)}。波士顿房屋这些数据于1978年开始统计，共506个数据点，涵盖了麻省波士顿不同郊区房屋14种特征的信息。本项目对原始数据集做了以下处理：
+- 有16个\texttt{\textquotesingle{}MEDV\textquotesingle{}}
+值为50.0的数据点被移除。
+这很可能是由于这些数据点包含\textbf{遗失}或\textbf{看不到的值}。 -
+有1个数据点的 \texttt{\textquotesingle{}RM\textquotesingle{}} 值为8.78.
+这是一个异常值，已经被移除。 -
+对于本项目，房屋的\texttt{\textquotesingle{}RM\textquotesingle{}}，
+\texttt{\textquotesingle{}LSTAT\textquotesingle{}}，\texttt{\textquotesingle{}PTRATIO\textquotesingle{}}以及\texttt{\textquotesingle{}MEDV\textquotesingle{}}特征是必要的，其余不相关特征已经被移除。
+-
+\texttt{\textquotesingle{}MEDV\textquotesingle{}}特征的值已经过必要的数学转换，可以反映35年来市场的通货膨胀效应。
+
+运行下面区域的代码以载入波士顿房屋数据集，以及一些此项目所需的Python库。如果成功返回数据集的大小，表示数据集已载入成功。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} 载入此项目所需要的库}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{c+c1}{\PYZsh{} 检查你的Python版本}
+        \PY{k+kn}{from} \PY{n+nn}{sys} \PY{k}{import} \PY{n}{version\PYZus{}info}
+        \PY{k}{if} \PY{n}{version\PYZus{}info}\PY{o}{.}\PY{n}{major} \PY{o}{!=} \PY{l+m+mi}{2} \PY{o+ow}{and} \PY{n}{version\PYZus{}info}\PY{o}{.}\PY{n}{minor} \PY{o}{!=} \PY{l+m+mi}{7}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{请使用Python 2.7来完成此项目}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{} 让可视化的结果在notebook中显示}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        Exception                                 Traceback (most recent call last)
+
+        <ipython-input-1-1ee617947f72> in <module>()
+          6 from sys import version\_info
+          7 if version\_info.major != 2 and version\_info.minor != 7:
+    ----> 8     raise Exception('请使用Python 2.7来完成此项目')
+          9 
+         10 \# 让可视化的结果在notebook中显示
+    
+
+        Exception: 请使用Python 2.7来完成此项目
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} 载入波士顿房屋的数据集}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{prices} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{features} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{c+c1}{\PYZsh{}这里是把价格也就是MEDV这一列丢弃掉，剩下的都是特征值的三列}
+            
+        \PY{c+c1}{\PYZsh{} 完成}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boston housing dataset has }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ data points with }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ variables each.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Boston housing dataset has 489 data points with 4 variables each.
+
+    \end{Verbatim}
+
+    \textbf{下面三张图的横坐标分别是：住宅平均房间数量、区域中被认为是低收入阶层的比率和镇上学生与教师数量比例，纵坐标是房屋的中值价格}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{get\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{prices}\PY{o}{.}\PY{n}{get\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSTAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{get\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{prices}\PY{o}{.}\PY{n}{get\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PTRATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{get\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{prices}\PY{o}{.}\PY{n}{get\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.collections.PathCollection at 0xefc6410e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{第二步.
+分析数据}\label{ux7b2cux4e8cux6b65.-ux5206ux6790ux6570ux636e}
+
+在项目的第一个部分，你会对波士顿房地产数据进行初步的观察并给出你的分析。通过对数据的探索来熟悉数据可以让你更好地理解和解释你的结果。
+
+由于这个项目的最终目标是建立一个预测房屋价值的模型，我们需要将数据集分为\textbf{特征(features)}和\textbf{目标变量(target
+variable)}。 - \textbf{特征}
+\texttt{\textquotesingle{}RM\textquotesingle{}}，
+\texttt{\textquotesingle{}LSTAT\textquotesingle{}}，和
+\texttt{\textquotesingle{}PTRATIO\textquotesingle{}}，给我们提供了每个数据点的数量相关的信息。
+-
+\textbf{目标变量}：\texttt{\textquotesingle{}MEDV\textquotesingle{}}，是我们希望预测的变量。
+
+他们分别被存在\texttt{features}和\texttt{prices}两个变量名中。
+
+    \subsubsection{编程练习
+1：基础统计运算}\label{ux7f16ux7a0bux7ec3ux4e60-1ux57faux7840ux7edfux8ba1ux8fd0ux7b97}
+
+你的第一个编程练习是计算有关波士顿房价的描述统计数据。我们已为你导入了\texttt{numpy}，你需要使用这个库来执行必要的计算。这些统计数据对于分析模型的预测结果非常重要的。
+在下面的代码中，你要做的是： -
+计算\texttt{prices}中的\texttt{\textquotesingle{}MEDV\textquotesingle{}}的最小值、最大值、均值、中值和标准差；
+- 将运算结果储存在相应的变量中。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}TODO 1}
+        
+        \PY{c+c1}{\PYZsh{}目标：计算价值的最小值}
+        \PY{n}{minimum\PYZus{}price} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{prices}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}目标：计算价值的最大值}
+        \PY{n}{maximum\PYZus{}price} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{prices}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}目标：计算价值的平均值}
+        \PY{n}{mean\PYZus{}price} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{prices}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}目标：计算价值的中值}
+        \PY{n}{median\PYZus{}price} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{prices}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}目标：计算价值的标准差}
+        \PY{n}{std\PYZus{}price} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{prices}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}目标：输出计算的结果}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Statistics for Boston housing dataset:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minimum price: \PYZdl{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{minimum\PYZus{}price}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Maximum price: \PYZdl{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{maximum\PYZus{}price}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean price: \PYZdl{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mean\PYZus{}price}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Median price \PYZdl{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{median\PYZus{}price}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard deviation of prices: \PYZdl{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{std\PYZus{}price}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Statistics for Boston housing dataset:
+
+Minimum price: \$105,000.00
+Maximum price: \$1,024,800.00
+Mean price: \$454,342.94
+Median price \$438,900.00
+Standard deviation of prices: \$165,171.13
+
+    \end{Verbatim}
+
+    \subsubsection{问题 1 -
+特征观察}\label{ux95eeux9898-1---ux7279ux5f81ux89c2ux5bdf}
+
+如前文所述，本项目中我们关注的是其中三个值:\texttt{\textquotesingle{}RM\textquotesingle{}}、\texttt{\textquotesingle{}LSTAT\textquotesingle{}}
+和\texttt{\textquotesingle{}PTRATIO\textquotesingle{}}，对每一个数据点:
+- \texttt{\textquotesingle{}RM\textquotesingle{}}
+是该地区中每个房屋的平均房间数量； -
+\texttt{\textquotesingle{}LSTAT\textquotesingle{}}
+是指该地区有多少百分比的房东属于是低收入阶层（有工作但收入微薄）； -
+\texttt{\textquotesingle{}PTRATIO\textquotesingle{}}
+是该地区的中学和小学里，学生和老师的数目比（\texttt{学生/老师}）。
+
+\emph{凭直觉，上述三个特征中对每一个来说，你认为增大该特征的数值，\texttt{\textquotesingle{}MEDV\textquotesingle{}}的值会是\textbf{增大}还是\textbf{减小}呢？每一个答案都需要你给出理由。}
+
+\textbf{提示：}你预期一个\texttt{\textquotesingle{}RM\textquotesingle{}}
+值是6的房屋跟\texttt{\textquotesingle{}RM\textquotesingle{}}
+值是7的房屋相比，价值更高还是更低呢？
+
+    \subsubsection{问题 1 - 回答：}\label{ux95eeux9898-1---ux56deux7b54}
+
+RM:我觉得RM的增加，会让MEDV减少，因为随着房屋数量的增加，相对的房子的价格会降低。
+LSTAT:该值增加，MEDV会减少，因为低收入阶层比较多的地方，房子的价格都会比较便宜。
+PTRATTO:该值增加，MEDV会减少。因为师生数量比表明了一个地方教育发展状况，比值越大，说明该地区缺老师，教育状况较差，因此该地区房价也会低。
+
+    \subsubsection{编程练习 2:
+数据分割与重排}\label{ux7f16ux7a0bux7ec3ux4e60-2-ux6570ux636eux5206ux5272ux4e0eux91cdux6392}
+
+接下来，你需要把波士顿房屋数据集分成训练和测试两个子集。通常在这个过程中，数据也会被重排列，以消除数据集中由于顺序而产生的偏差。
+在下面的代码中，你需要
+
+将\texttt{features}和\texttt{prices}的数据都分成用于训练的数据子集和用于测试的数据子集。
+- 分割比例为：80\%的数据用于训练，20\%用于测试； - 选定一个数值以设定
+\texttt{random\_seed} ，这会确保结果的一致性； -
+提示：打乱训练集和测试集的数据时，只要创建一个 list，然后用这个 list
+分别应用于 X，y 生成训练集和测试集。
+\texttt{test\ =\ np.array({[}1,\ 3,\ 5,\ 7,\ 9,\ 11{]})\ \ """\ test{[}{[}0,1,2{]}{]}\ =\ {[}1,\ 3,\ 5{]}\ \ """\ test{[}{[}1,3,5{]}{]}\ =\ {[}3,\ 7,\ 11{]}}
+
+可能需要用到的函数 -
+(numpy.random.seed){[}https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.seed.html{]}
+-
+(numpy.random.shuffle){[}https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.shuffle.html{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{features}\PY{p}{,}\PY{n}{prices}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+391
+98
+
+    \end{Verbatim}
+
+    \subsubsection{问题 2 -
+训练及测试}\label{ux95eeux9898-2---ux8badux7ec3ux53caux6d4bux8bd5}
+
+\emph{将数据集按一定比例分为训练用的数据集和测试用的数据集对学习算法有什么好处？}
+
+\emph{如果果用模型已经见过的数据，例如部分训练集数据进行测试，又有什么坏处？}
+
+\textbf{提示：} 如果没有数据来对模型进行测试，会出现什么问题？
+
+    \subsubsection{问题 2 - 回答:}\label{ux95eeux9898-2---ux56deux7b54}
+
+将数据集分成训练集和测试集的好处：既可以用于训练又可以用于测试，而且不会相互干扰，而且可以对训练模型进行有效的验证。
+用部分训练集进行测试的坏处：模型就是根据训练集得出的，使用训练集进行测试肯定会得出较好的结果，这不能判断训练模型的优劣。
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{第三步.
+模型衡量标准}\label{ux7b2cux4e09ux6b65.-ux6a21ux578bux8861ux91cfux6807ux51c6}
+
+    \subsubsection{编程练习3：定义衡量标准}\label{ux7f16ux7a0bux7ec3ux4e603ux5b9aux4e49ux8861ux91cfux6807ux51c6}
+
+如果不能对模型的训练和测试的表现进行量化地评估，我们就很难衡量模型的好坏。通常我们会定义一些衡量标准，这些标准可以通过对某些误差或者拟合程度的计算来得到。在这个项目中，你将通过运算\href{http://stattrek.com/statistics/dictionary.aspx?definition=coefficient_of_determination}{\emph{决定系数}}
+R2
+来量化模型的表现。模型的决定系数是回归分析中十分常用的统计信息，经常被当作衡量模型预测能力好坏的标准。
+
+R2的数值范围从0至1，表示\textbf{目标变量}的预测值和实际值之间的相关程度平方的百分比。一个模型的R2
+值为0还不如直接用\textbf{平均值}来预测效果好；而一个R2
+值为1的模型则可以对目标变量进行完美的预测。从0至1之间的数值，则表示该模型中目标变量中有百分之多少能够用\textbf{特征}来解释。\emph{模型也可能出现负值的R2，这种情况下模型所做预测有时会比直接计算目标变量的平均值差很多。}
+
+在下方代码的 \texttt{performance\_metric} 函数中，你要实现： - 计算
+\texttt{y\_true} 和
+\texttt{y\_predict}的R2值，作为对其表现的评判，可参考\href{http://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html}{\texttt{r2\_score}}。
+- 将他们的表现评分储存到\texttt{score}变量中。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} TODO 3}
+        
+        \PY{c+c1}{\PYZsh{} 提示： 导入r2\PYZus{}score}
+        \PY{k+kn}{from}  \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+        \PY{k}{def} \PY{n+nf}{performance\PYZus{}metric}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}predict}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}计算并返回预测值相比于预测值的分数\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{score} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}predict}\PY{p}{)}
+            \PY{k}{return} \PY{n}{score}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{程序运行到这里是没有问题的！}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+程序运行到这里是没有问题的！
+
+    \end{Verbatim}
+
+    \subsubsection{问题 3 -
+拟合程度}\label{ux95eeux9898-3---ux62dfux5408ux7a0bux5ea6}
+
+假设一个数据集有五个数据且一个模型做出下列目标变量的预测：
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule
+真实数值 & 预测数值\tabularnewline
+\midrule
+\endhead
+3.0 & 2.5\tabularnewline
+-0.5 & 0.0\tabularnewline
+2.0 & 2.1\tabularnewline
+7.0 & 7.8\tabularnewline
+4.2 & 5.3\tabularnewline
+\bottomrule
+\end{longtable}
+
+\emph{你觉得这个模型已成功地描述了目标变量的变化吗？如果成功，请解释为什么，如果没有，也请给出原因。}
+
+\textbf{提示}：运行下方的代码，使用\texttt{performance\_metric}函数来计算模型的决定系数。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} 计算这个模型的预测结果的决定系数}
+        \PY{c+c1}{\PYZsh{}下面的方法是导入第三方的包实现的}
+        \PY{n}{score} \PY{o}{=} \PY{n}{performance\PYZus{}metric}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mf}{4.2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{2.1}\PY{p}{,} \PY{l+m+mf}{7.8}\PY{p}{,} \PY{l+m+mf}{5.3}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model has a coefficient of determination, R\PYZca{}2, of }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{p}{)}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{performance\PYZus{}metric2}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}predict}\PY{p}{)}\PY{p}{:}
+            \PY{n}{y\PYZus{}mean} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{)}
+            \PY{n}{temp01} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{each}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{each}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}mean}\PY{p}{)} \PY{k}{for} \PY{n}{each} \PY{o+ow}{in} \PY{n}{y\PYZus{}true}\PY{p}{]}
+            \PY{n}{sstot} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{temp01}\PY{p}{)}
+            \PY{n}{temp02} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}predict}\PY{p}{)}\PY{p}{]}
+            \PY{n}{ssres} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{temp02}\PY{p}{)}
+            \PY{n}{score} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n+nb}{float}\PY{p}{(}\PY{n}{ssres}\PY{p}{)}\PY{o}{/}\PY{n}{sstot}
+            \PY{k}{return} \PY{n}{score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model has a coefficient of determination, R\^{}2, of 0.923.
+
+    \end{Verbatim}
+
+    \subsubsection{问题 3 - 回答:}\label{ux95eeux9898-3---ux56deux7b54}
+
+根据得出的R2分数来看，该模型比较好的模拟了目标量的变化，因为R2等于0.923
+
+    \subsection{第四步.
+模型训练}\label{ux7b2cux56dbux6b65.-ux6a21ux578bux8badux7ec3}
+
+\subsubsection{编程练习
+4：训练回归模型}\label{ux7f16ux7a0bux7ec3ux4e60-4ux8badux7ec3ux56deux5f52ux6a21ux578b}
+
+在这个练习中，你将需要将所学到的内容整合，使用 \textbf{gradient descent
+算法}训练一个线性回归模型。你可以尝试使用自己构建的多项式特征和 L1、L2
+Loss，进行实验后，讨论他们是否对你的模型有效，并通过前面定义的
+\texttt{performance\_metric} 量化他们的提升效果。
+
+在这里，你不能使用现成 package，不能使用额外 data。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} TODO 4}
+        \PY{k}{def} \PY{n+nf}{computeCost}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{theta}\PY{p}{)}\PY{p}{:}
+            \PY{n}{m}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+            \PY{n}{cost}\PY{o}{=}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{theta}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{m}
+            \PY{k}{return} \PY{n}{cost}
+            
+        \PY{k}{def} \PY{n+nf}{gradientDescent}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{theta}\PY{p}{,}\PY{n}{alpha}\PY{p}{,}\PY{n}{num\PYZus{}inters}\PY{p}{)}\PY{p}{:}
+            \PY{n}{m}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+            \PY{k}{for} \PY{n}{inter} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}inters}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Z} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{*} \PY{n}{alpha} \PY{o}{/} \PY{n}{m}
+                \PY{n}{theta} \PY{o}{=} \PY{n}{theta} \PY{o}{\PYZhy{}} \PY{n}{Z}
+            \PY{k}{return} \PY{n}{theta}
+        \PY{k}{def} \PY{n+nf}{predictprices}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{m}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+            \PY{n}{m1}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+            \PY{n}{theta}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{num\PYZus{}inters} \PY{o}{=} \PY{l+m+mi}{5000}
+            \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.002}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{,}\PY{n}{X}\PY{p}{]}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{这里}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{thetar}\PY{o}{=}\PY{n}{gradientDescent}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{theta}\PY{p}{,}\PY{n}{alpha}\PY{p}{,}\PY{n}{num\PYZus{}inters}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{thetar}\PY{p}{)}
+            \PY{n}{X\PYZus{}test}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{m1}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{]}
+            \PY{n}{y}\PY{o}{=}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{thetar}\PY{p}{)}
+            \PY{k}{return} \PY{n}{y}
+            
+\end{Verbatim}
+
+
+    \subsubsection{问题 4 -
+回归模型的优化}\label{ux95eeux9898-4---ux56deux5f52ux6a21ux578bux7684ux4f18ux5316}
+
+在最基础的回归模型上，你使用了什么办法来提升模型的效果，最后模型的性能是否得到了提升？如果提升了，请说出提升性能的原理，如果没有，请探究没有生效的原因。
+
+    \subsubsection{问题 4 - 回答：}\label{ux95eeux9898-4---ux56deux7b54}
+
+    \subsection{第六步.
+做出预测}\label{ux7b2cux516dux6b65.-ux505aux51faux9884ux6d4b}
+
+当我们用数据训练出一个模型，它现在就可用于对新的数据进行预测。在决策树回归函数中，模型已经学会对新输入的数据\emph{提问}，并返回对\textbf{目标变量}的预测值。你可以用这个预测来获取数据未知目标变量的信息，这些数据必须是不包含在训练数据之内的。
+
+    \subsubsection{问题 5 -
+预测销售价格}\label{ux95eeux9898-5---ux9884ux6d4bux9500ux552eux4ef7ux683c}
+
+想像你是一个在波士顿地区的房屋经纪人，并期待使用此模型以帮助你的客户评估他们想出售的房屋。你已经从你的三个客户收集到以下的资讯:
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+特征 & 客戶 1 & 客戶 2 & 客戶 3\tabularnewline
+\midrule
+\endhead
+房屋内房间总数 & 5 间房间 & 4 间房间 & 8 间房间\tabularnewline
+社区贫困指数（％被认为是贫困阶层） & 17\% & 32\% & 3\%\tabularnewline
+邻近学校的学生-老师比例 & 15：1 & 22：1 & 12：1\tabularnewline
+\bottomrule
+\end{longtable}
+
+\emph{你会建议每位客户的房屋销售的价格为多少？从房屋特征的数值判断，这样的价格合理吗？为什么？}
+
+\textbf{提示：}用你在\textbf{分析数据}部分计算出来的统计信息来帮助你证明你的答案。
+
+运行下列的代码区域，使用你的模型来为每位客户的房屋价值做出预测。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} 生成三个客户的数据}
+        \PY{n}{client\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} 客户 1}
+                       \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} 客户 2}
+                       \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 客户 3}
+        
+        \PY{c+c1}{\PYZsh{} 进行预测}
+        \PY{n}{predicted\PYZus{}price} \PY{o}{=}  \PY{n}{predictprices}\PY{p}{(}\PY{n}{client\PYZus{}data}\PY{p}{,}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{price} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{predicted\PYZus{}price}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted selling price for Client }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s home: \PYZdl{}}\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{price}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+这里
+[ 26590.77288387 124021.63296387  -8923.71345537 -12308.66671131]
+Predicted selling price for Client 1's home: \$310,365.81
+Predicted selling price for Client 2's home: \$-33,672.19
+Predicted selling price for Client 3's home: \$844,288.70
+
+    \end{Verbatim}
+
+    \subsubsection{问题 5 - 回答：}\label{ux95eeux9898-5---ux56deux7b54}
+
+    \subsubsection{编程练习 5}\label{ux7f16ux7a0bux7ec3ux4e60-5}
+
+你刚刚预测了三个客户的房子的售价。在这个练习中，你将用你的最优模型在整个测试数据上进行预测,
+并计算相对于目标变量的决定系数 R2的值**。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}TODO 5}
+         
+         \PY{c+c1}{\PYZsh{} 提示：你可能需要用到 X\PYZus{}test, y\PYZus{}test, performance\PYZus{}metric}
+         \PY{c+c1}{\PYZsh{} 提示：你需要使用编程练习 4 中得到参数数值进行预测}
+         \PY{c+c1}{\PYZsh{} 提示：你可能需要参考问题3的代码来计算R\PYZca{}2的值}
+         
+         \PY{n}{r2} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{predicted\PYZus{}price}\PY{o}{=} \PY{n}{predictprices}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{r2} \PY{o}{=} \PY{n}{performance\PYZus{}metric}\PY{p}{(}\PY{n}{predicted\PYZus{}price}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Optimal model has R\PYZca{}2 score }\PY{l+s+si}{\PYZob{}:,.2f\PYZcb{}}\PY{l+s+s2}{ on test data}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{r2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+这里
+[ 26590.77288387 124021.63296387  -8923.71345537 -12308.66671131]
+Optimal model has R\^{}2 score 0.55 on test data
+
+    \end{Verbatim}
+
+    \subsubsection{问题6 -
+分析决定系数}\label{ux95eeux98986---ux5206ux6790ux51b3ux5b9aux7cfbux6570}
+
+你刚刚计算了最优模型在测试集上的决定系数，你会如何评价这个结果？（你也可以尝试使用你的模型对问题
+5 中三个客户的房屋价值进行预测，并与你之前的预测值进行对比）
+
+    \subsubsection{问题6 - 回答}\label{ux95eeux98986---ux56deux7b54}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
